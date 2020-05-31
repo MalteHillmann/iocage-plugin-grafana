@@ -1,0 +1,6 @@
+{
+	"servicerestart":"service grafana restart",
+	"serviceget": "/usr/local/bin/grafanaget",
+	"serviceset": "/usr/local/bin/grafanaset",
+	"options": {}
+}
