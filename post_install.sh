@@ -7,11 +7,11 @@ sysrc -f /etc/rc.conf grafana_enable="YES" 2>/dev/null
 
 # Start the services
 echo -n "Starting InfluxDB..."
-service influxd start 2>/dev/null
+service influxd start > /dev/null
 curl -sL -I localhost:8086/ping?wait_for_leader=30s
 echo " done"
 echo -n "Starting Grafana..."
-service grafana start 2>/dev/null
+service grafana start > /dev/null
 while [ "$(curl -I -s -o /dev/null -w 200 http://localhost:3000/api/health)" != "200" ]; do sleep 1; done
 echo " done"
 
@@ -26,7 +26,7 @@ influx -execute "CREATE DATABASE grafana"
 echo "Enabling auth"
 sed -i.conf 's/# auth-enabled = false/auth-enabled = true/g' /usr/local/etc/influxd.conf
 echo -n "Restarting InfluxDB..."
-service influxd restart 2>/dev/null
+service influxd restart > /dev/null
 curl -sL -I 'http://localhost:8086/ping?wait_for_leader=30s' > /dev/null
 echo " done"
 
@@ -43,7 +43,7 @@ mkdir -p /var/db/grafana/provisioning/datasources
 mkdir -p /var/db/grafana/provisioning/notifiers
 mkdir -p /var/db/grafana/provisioning/dashboards
 echo -n "Restarting Grafana..."
-service grafana restart 2>/dev/null
+service grafana restart > /dev/null
 while [ "$(curl -I -s -o /dev/null -w 200 'http://localhost:3000/api/health')" != "200" ]; do sleep 1; done
 echo " done"
 
