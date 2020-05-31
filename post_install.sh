@@ -1,3 +1,5 @@
+#!/bin/sh
+
 # Enable the services
 sysrc -f /etc/rc.conf influxd_enable="YES" 2>/dev/null
 sysrc -f /etc/rc.conf grafana_enable="YES" 2>/dev/null
